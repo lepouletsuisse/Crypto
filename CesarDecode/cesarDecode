@@ -1,0 +1,76 @@
+tab_rot13 = """V nz n unpxre, naq guvf vf zl znavsrfgb.
+Lbh znl fgbc guvf vaqvivqhny, ohg lbh pna'g
+fgbc hf nyy... nsgre nyy, jr'er nyy nyvxr."""
+
+tab_ceasar = """WRXWH ODJDX OHHVW GLYLV HHQWU RLVSD UWLHV GRQWO XQHHV WKDEL WHSDU
+OHVEH OJHVO DXWUH SDUOH VDTXL WDLQV ODWUR LVLPH SDUFH XATXL GDQVO
+HXUOD QJXHV HQRPP HQWFH OWHVH WGDQV ODQWU HJDXO RLVFH VQDWL RQVGL
+IIUHQ WHQWU HHOOH VSDUO HODQJ DJHOH VLQVW LWXWL RQVHW OHVOR LVOHV
+JDXOR LVVRQ WVSDU VGHVD TXLWD LQVSD UODJD URQQH GHVEH OJHVS DUODP
+DUQHH WODVH LQHOH VEHOJ HVVRQ WOHVS OXVEU DYHVG HWRXV FHVSH XSOHV
+SDUFH TXLOV UHVWH QWWRX WIDLW WUDQJ HUVOD SROLW HVVHH WODFL YLOLV
+DWLRQ GHODS URYLQ FHURP DLQHH WTXHO HVPDU FKDQG VDOOD QWUDU HPHQW
+FKHCH XAQHO HXUSR UWHQW SRLQW FHTXL FRQWU LEXHQ HUYHU OHFRX UDJHG
+DLOOH XUVYR LVLQV GHVJH UPDLQ VTXLK DELWH QWDXG HOGXU KLQLO VVRQW
+FRQWL QXHOO HPHQW HQJXH UUHDY HFHXA SDUOD PPHUD LVRQO HVKHO YWHVV
+XUSDV VHQWD XVVLH QYDOH XUOHV DXWUH VJDXO RLVFD ULOVH QJDJH QWFRQ
+WUHOH VJHUP DLQVG HVOXW WHVSU HVTXH MRXUQ DOLUH VVRLW TXLOV OHVUH
+SRXVV HQWGH OHXUS URSUH WHUUL WRLUH VRLWT XLOVH QYDKL VVHQW FHOXL
+GHOHX UVHQQ HPLVO HSDBV KDELW FRPPH QRXVO DYRQV GLWSD UOHVJ DXORL
+VFRPP HQFHD XUKQH HWHVW ERUQS DUODJ DURQQ HORFD QHWOH VIURQ WLUHV
+GHVEH OJHVG XFWGH VVTXD QHVHW GHVKH OYWHV LOYDM XVTXD XUKLQ LOHVW
+VLWXD XQRUG FHOXL GHVEH OJHVF RPPHQ FHOHA WUPHI URQWL UHGHO DJDXO
+HHWHV WERUQ SDUOD SDUWL HLQIU LHXUH GXUKL QLOUH JDUGH OHQRU GHWOR
+ULHQW ODTXL WDLQH VWHQG GHODJ DURQQ HDXAS BUQHV HWFHW WHSDU WLHGH
+ORFDQ TXLED LJQHO HVFWH VGHVS DJQHH OOHHV WHQWU HOHFR XFKDQ WHWOH
+QRUG"""
+
+tab_unknow = """VVVDA AGVVG VVDAA GXXFF FVVAG VAVFF VVAGG
+VDVVV XAXDX DVVVA AXVXV XVGDF VFAFX VGFFV AX"""
+
+tab_vigenere = """mias iqd yl diqd"""
+
+newTab = ""
+def CEASAR(tab, newTab):
+    tab = tab.upper()
+    for i in tab:
+        nb = ord(i)
+        if nb > 64 and nb < 91:
+            nb -= 3
+            if nb < 65:
+                nb = 90 - (64-nb)
+            newTab += (chr(nb))
+    return newTab
+
+def ROT13(tab, newTab):
+    tab = tab.upper()
+    for i in tab:
+        nb = ord(i)
+        if nb > 64 and nb < 91:
+            nb -= 13
+            if nb < 65:
+                nb = 90 - (64-nb)
+        newTab += (chr(nb))
+    return newTab
+
+def VIGENERE(tab, newTab, key):
+    key = key.upper()
+    tab = tab.upper()
+    y = 0
+    for i in tab:
+        nb = ord(i)
+        if nb > 64 and nb < 91:
+            nb -= (ord(key[y])-65)
+            if y < len(key) - 1:
+                y += 1
+            else:
+                y = 0
+            if nb < 65:
+                nb = 90 - (64-nb)
+        newTab += (chr(nb))
+    return newTab
+print("Ceasar:\n" + CEASAR(tab_ceasar, newTab) + "\n")
+newTab = ""
+print("ROT13:\n" + ROT13(tab_rot13,newTab) + "\n")
+newTab = ""
+print("Vigenere:\n" + VIGENERE(tab_vigenere, newTab, "KEY") + "\n")

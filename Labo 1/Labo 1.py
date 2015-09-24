@@ -88,5 +88,46 @@ def cesar_general(tab):
     print("Le message cherche a une cle de " + str(get_min_dic(dic_prob)[0]) + " et voici son contenue dechiffrer")
     print(cesar_decrypt(tab, get_min_dic(dic_prob)[0]))
 
+def vigenere_encrypt(tab, key):
+    newTab = ""
+    key = key.upper()
+    tab = tab.upper()
+    y = 0
+    for i in tab:
+        nb = ord(i)
+        if nb > 64 and nb < 91:
+            nb -= (ord(key[y])-65)
+            if y < len(key) - 1:
+                y += 1
+            else:
+                y = 0
+            if nb < 65:
+                nb = 90 - (64-nb)
+        newTab += (chr(nb))
+    return newTab
 
-cesar_general(cesar_encrypt(tabTest, 7))
+
+def vigenere_decrypt(tab, key):
+    newTab = ""
+    key = key.upper()
+    tab = tab.upper()
+    y = 0
+    for i in tab:
+        nb = ord(i)
+        if nb > 64 and nb < 91:
+            nb += (ord(key[y]) - 65)
+            if y < len(key) - 1:
+                y += 1
+            else:
+                y = 0
+            if nb > 90:
+                nb = 65 + (nb - 91)
+        newTab += chr(nb)
+    return newTab
+
+
+
+newTab = vigenere_encrypt(tabTest, "truc")
+print(newTab)
+newTab = vigenere_decrypt(newTab, "truc")
+print(newTab)
